@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story vs Example | TED Talk Studio 4</title>
+<style>
+:root{--bark:#3B2417;--bark2:#5A3825;--flame:#F26B1D;--flame2:#FFE4D3;--ember:#FFC145;--ember2:#FFF3D6;--teal:#1FA2B8;--teal2:#D8F2F6;--bg:#F7F4F2;--muted:#6E5D52;--line:#E8DED7;--bad:#D64545;--bad2:#FBE1E1;--ok:#2E9E62;--ok2:#DDF3E6;--r:20px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--bark);line-height:1.5;font-size:17px}
+button{font:inherit;cursor:pointer;border:none}
+input,textarea,select{font:inherit;color:var(--bark)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.top{position:sticky;top:0;z-index:50;background:var(--bark);color:#fff;box-shadow:0 4px 18px rgba(59,36,23,.3)}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.5px}
+.fire{font-size:24px;animation:flick 1.6s ease-in-out infinite}
+@keyframes flick{50%{transform:scale(1.12) rotate(-4deg)}}
+.logo small{display:block;font-weight:600;opacity:.7;font-size:11px;letter-spacing:1.5px}
+.spacer{flex:1}
+.pts{background:var(--ember);color:var(--bark);font-weight:900;border-radius:99px;padding:6px 14px;font-size:15px;white-space:nowrap}
+.tbtn{background:rgba(255,255,255,.12);color:#fff;border-radius:99px;padding:7px 13px;font-size:14px;font-weight:700}
+.tbtn:hover{background:rgba(255,255,255,.22)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;max-width:1080px;margin:0 auto;scrollbar-width:none}
+.tab{flex:1 0 auto;background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:8px 12px;font-size:14px;font-weight:700;display:flex;gap:6px;align-items:center;justify-content:center;opacity:.75}
+.tab.on{background:var(--flame);opacity:1}
+.tab .ok{display:none}.tab.done .ok{display:inline}
+.hero{position:relative;overflow:hidden;color:#fff;padding:56px 0 64px;background:radial-gradient(circle at 80% 85%,rgba(242,107,29,.55) 0,transparent 35%),radial-gradient(circle at 80% 85%,rgba(255,193,69,.4) 0,transparent 22%),linear-gradient(180deg,#1E120B,#3B2417)}
+.hero .camp{position:absolute;right:9%;bottom:18px;font-size:110px;pointer-events:none;filter:drop-shadow(0 0 30px rgba(255,140,40,.7));animation:flick 2s ease-in-out infinite}
+.hero .stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1.5px);background-size:90px 70px;opacity:.25;pointer-events:none}
+.hero h1{font-size:clamp(36px,6.5vw,66px);line-height:1;font-weight:900;letter-spacing:-1px;max-width:620px;position:relative}
+.hero h1 span{color:var(--ember)}
+.hero p{max-width:540px;margin-top:14px;font-size:19px;opacity:.95;position:relative}
+.namebox{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;max-width:600px;position:relative}
+.namebox input{flex:1 1 200px;border-radius:14px;border:3px solid transparent;padding:13px 16px;font-size:17px}
+.namebox input:focus{outline:none;border-color:var(--ember)}
+.loadhint{margin-top:12px;font-size:15px;opacity:.9;position:relative}
+.loadhint label{color:var(--ember);font-weight:800;cursor:pointer;text-decoration:underline}
+.hero.small{padding:22px 0 24px}
+.hero.small p,.hero.small .namebox,.hero.small .loadhint,.hero.small .camp{display:none}
+.hero.small h1{font-size:clamp(24px,4vw,34px)}
+main{padding:28px 0 60px}
+.phase{display:none;animation:fade .35s ease}.phase.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.phead{display:flex;align-items:center;gap:14px;margin:6px 0 18px;flex-wrap:wrap}
+.pnum{width:58px;height:58px;border-radius:50% 50% 50% 8px;display:grid;place-items:center;font-size:28px;color:#fff;flex:none}
+.phead h2{font-size:clamp(26px,4vw,36px);font-weight:900;line-height:1.1}
+.phead p{color:var(--muted);font-weight:600}
+.card{background:#fff;border-radius:var(--r);padding:22px;margin-bottom:18px;box-shadow:0 6px 22px rgba(59,36,23,.06);border:2px solid var(--line)}
+.card h3{font-size:22px;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card h3 .em{font-size:26px}
+.hint{color:var(--muted);font-size:15px;margin-bottom:14px}
+.btn{background:var(--flame);color:#fff;font-weight:800;border-radius:14px;padding:12px 20px;font-size:16px;box-shadow:0 4px 0 #B84A0D;transition:transform .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #B84A0D}
+.btn.alt{background:var(--bark);box-shadow:0 4px 0 #1E120B}
+.btn.ember{background:var(--ember);color:var(--bark);box-shadow:0 4px 0 #C9921A}
+.btn.teal{background:var(--teal);box-shadow:0 4px 0 #137888}
+.btn.ghost{background:#fff;color:var(--bark);border:2px solid var(--line);box-shadow:none}
+.btn.sm{padding:7px 14px;font-size:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.next{display:flex;justify-content:flex-end;margin-top:8px}
+.objectives{background:linear-gradient(135deg,var(--flame2),var(--ember2));border:none}
+.objectives li{margin:6px 0 6px 22px;font-weight:600}
+.chip{background:#fff;border:2px solid var(--line);border-radius:99px;padding:8px 14px;font-weight:700;font-size:15px}
+.chip.on{background:var(--bark);color:#fff;border-color:var(--bark)}
+.fb{margin-top:10px;padding:12px 14px;border-radius:14px;font-weight:600;display:none}
+.fb.show{display:block;animation:fade .3s}
+.fb.good{background:var(--ok2);color:#145C35}.fb.bad{background:var(--bad2);color:#8A1F1F}.fb.info{background:var(--ember2);color:#6B4A00}
+.progress{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0}
+.progress div{height:100%;background:linear-gradient(90deg,var(--flame),var(--ember));width:0;transition:width .4s}
+.opts{display:grid;gap:8px}
+.opt{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 14px;text-align:left;font-weight:600;font-size:15px;color:var(--bark)}
+.opt:disabled{cursor:default;color:var(--bark)}
+.opt:hover{border-color:var(--flame)}
+.opt.right{background:var(--ok2);border-color:var(--ok)}
+.opt.wrong{background:var(--bad2);border-color:var(--bad)}
+.speak{background:var(--bark);color:#fff;border-radius:99px;padding:6px 12px;font-size:13px;font-weight:700}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.vs{grid-template-columns:1fr}}
+.vbox{border:3px solid var(--line);border-radius:18px;padding:16px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.vbox .lab{font-weight:900;font-size:13px;letter-spacing:1.5px;color:var(--muted)}
+.vbox q{font-style:italic;quotes:"“" "”";font-size:16px}
+.vbox.win{border-color:var(--ok);background:var(--ok2)}
+.sortq{background:var(--bark);color:#fff;border-radius:18px;padding:22px;text-align:center;font-size:19px;font-weight:700;min-height:110px;display:grid;place-items:center;font-style:italic}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.bin{border-radius:18px;padding:14px;font-weight:900;font-size:17px;color:#fff;text-align:center}
+.bin .big{font-size:30px;display:block}
+/* mountain */
+.mtn{position:relative;height:300px;margin:10px 0 4px}
+.mtn svg{position:absolute;inset:0;width:100%;height:100%}
+.mslot{position:absolute;width:23%;min-height:70px;border:3px dashed #D8C7BA;border-radius:14px;background:rgba(255,255,255,.92);padding:6px 8px;font-size:13px;font-weight:700;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.mslot b{font-size:11px;letter-spacing:1px;color:var(--flame)}
+.mslot.filled{border-style:solid;border-color:var(--flame)}
+@media(max-width:640px){.mtn{height:auto}.mtn svg{display:none}.mslot{position:static;width:auto;margin-bottom:8px}}
+.pieces{display:grid;gap:8px;margin-top:12px}
+.piece{background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 14px;text-align:left;font-weight:600;font-size:15px}
+.piece:disabled{opacity:.35;cursor:default}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:760px){.three{grid-template-columns:1fr}}
+.ver{border:3px solid var(--line);border-radius:18px;padding:14px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.ver .lab{font-weight:900;font-size:13px;letter-spacing:1.4px}
+.ver p{font-size:14.5px}
+.ver.win{border-color:var(--ok);background:var(--ok2)}
+.ladder{display:grid;gap:10px}
+.rung{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;border-radius:16px;padding:12px 14px;cursor:pointer;border:2px solid var(--line);background:#fff;transition:.2s}
+.rung .lv{font-weight:900;font-size:14px;text-align:center;border-radius:12px;padding:8px;color:#fff}
+.rung .tx{font-weight:600;font-style:italic}
+.rung .why{display:none;font-style:normal;font-size:14px;color:var(--muted);margin-top:4px}
+.rung.open .why{display:block}
+.recipe{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.recipe{grid-template-columns:1fr}}
+.rc{border-radius:18px;padding:16px;color:#fff}
+.rc h4{font-size:20px;font-weight:900;margin-bottom:8px}
+.rc ol{margin-left:20px;font-weight:600}.rc li{margin:5px 0}
+.rc .say{background:rgba(255,255,255,.18);border-radius:12px;padding:8px 10px;margin-top:10px;font-size:14px;font-style:italic}
+.sense{display:flex;gap:8px;flex-wrap:wrap}
+/* builders */
+.who{background:linear-gradient(135deg,var(--bark),var(--bark2));color:#fff;border-radius:18px;padding:14px 16px;display:grid;gap:8px}
+.who b{color:var(--ember);font-size:12px;letter-spacing:1.4px;display:block}
+.who input{width:100%;border-radius:10px;border:0;padding:8px 12px;margin-top:4px}
+.bld{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:10px;margin-top:12px}
+.bx{border-radius:16px;padding:12px;border:2px solid var(--line);background:#fff}
+.bx label{font-weight:900;font-size:13px;letter-spacing:.8px;display:block}
+.bx .q{font-size:13px;color:var(--muted);margin:2px 0 6px}
+.bx input{width:100%;border:2px solid var(--line);border-radius:10px;padding:8px 10px}
+.bx input:focus{outline:none;border-color:var(--flame)}
+.wc{font-size:12px;font-weight:800;margin-top:2px;color:var(--muted)}
+.wc.over{color:var(--bad)}
+.preview{margin-top:12px;background:var(--ember2);border-radius:16px;padding:14px 16px;font-size:17px;line-height:1.7}
+.preview i{color:var(--muted)}
+.checks{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.checks span{font-size:13px;font-weight:800;padding:5px 10px;border-radius:99px;background:#F1ECE8}
+.checks span.ok{background:var(--ok2);color:#145C35}
+.timer{font-size:54px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;color:var(--flame)}
+.lvl{display:flex;gap:6px}
+.lvl button{border-radius:10px;padding:6px 10px;background:#F1ECE8;font-weight:800;font-size:14px}
+.lvl button.on{background:var(--ok);color:#fff}
+.coach .it{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 14px;font-weight:700;margin-bottom:8px}
+.stars{display:flex;gap:6px}
+.stars button{font-size:30px;background:none;filter:grayscale(1);opacity:.4}
+.stars button.on{filter:none;opacity:1}
+.self{display:grid;gap:12px}
+.self .it{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:2px solid var(--line);border-radius:14px;padding:10px 14px;font-weight:700}
+.qn{font-weight:900;color:var(--flame);font-size:14px;letter-spacing:1px}
+.qq{font-size:19px;font-weight:800;margin:6px 0 4px}
+.gl{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.gc{height:120px;perspective:800px;cursor:pointer}
+.gc .in{position:relative;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.gc.on .in{transform:rotateY(180deg)}
+.gc .f,.gc .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}
+.gc .f{background:#fff;border:2px solid var(--line);font-weight:900;font-size:17px}
+.gc .f .big{font-size:28px}
+.gc .b{background:var(--bark);color:#fff;transform:rotateY(180deg);font-size:14px}
+.gc .b .ar{font-size:22px;color:var(--ember);font-weight:800;direction:rtl;margin-bottom:4px}
+.modal{position:fixed;inset:0;background:rgba(30,18,11,.6);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal.on{display:flex}
+.mbox{background:#fff;border-radius:22px;max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:22px}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.badge{flex:1 1 120px;border-radius:16px;padding:12px;text-align:center;background:#F1ECE8;filter:grayscale(1);opacity:.5;font-weight:800;font-size:13px}
+.badge .big{font-size:34px;display:block}
+.badge.on{filter:none;opacity:1;background:linear-gradient(135deg,var(--ember),var(--flame2))}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(140%);background:var(--bark);color:#fff;padding:12px 20px;border-radius:99px;font-weight:800;z-index:200;transition:transform .35s;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:92vw;text-align:center}
+.toast.on{transform:translateX(-50%) translateY(0)}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:150}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:26px 16px 40px;font-weight:600}
+@media(max-width:640px){.tbtn .lbl{display:none}.tbtn{padding:7px 10px}.logo small{display:none}.hero .camp{font-size:60px;opacity:.5}}
+#printCard,#cert{display:none}
+@media print{@page{size:A4;margin:12mm}body{background:#fff;font-size:12pt}body > *:not(.printing){display:none !important}.printing{display:block !important}.pc{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.pc{font-family:"Segoe UI",Arial,sans-serif;color:#3B2417}
+.pc .ph{background:#3B2417;color:#fff;border-radius:14px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.pc .ph h1{font-size:24px}
+.pc .pb{border:2px solid #E8DED7;border-radius:12px;padding:9px 12px;margin-top:10px;break-inside:avoid}
+.pc .pb b{display:block;font-size:11px;letter-spacing:1.2px;color:#F26B1D;text-transform:uppercase}
+.pc .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}
+.pc .g4 div{background:#FFF3D6;border-radius:8px;padding:6px 8px;font-size:12px}
+.pc .g4 div i{display:block;font-style:normal;font-size:10px;font-weight:800;color:#6E5D52;letter-spacing:1px}
+.certin{border:10px solid #3B2417;border-radius:20px;padding:40px;text-align:center;outline:4px solid #FFC145;outline-offset:-24px}
+.certin h1{font-size:42px}
+.certin .nm{font-size:36px;font-weight:900;color:#F26B1D;margin:14px 0;border-bottom:3px dashed #FFC145;display:inline-block;padding:0 30px 6px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="logo"><span class="fire">🔥</span><div>STORY CAMP<small>TED TALK SERIES · APP 4</small></div></div>
+    <div class="spacer"></div>
+    <div class="pts" id="pts">🔥 0 pts</div>
+    <button class="tbtn" onclick="openModal('mBadges')">🏅<span class="lbl"> Badges</span></button>
+    <button class="tbtn" onclick="openModal('mGloss')">📖<span class="lbl"> Glossary</span></button>
+    <button class="tbtn" onclick="saveJSON()">💾<span class="lbl"> Save</span></button>
+    <label class="tbtn" style="cursor:pointer">📂<span class="lbl"> Load</span><input type="file" accept=".json" hidden onchange="loadJSON(event)"></label>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+</header>
+
+<section class="hero" id="hero"><div class="stars"></div><div class="camp">🔥</div>
+  <div class="wrap">
+    <h1>Stories <span>stay.</span><br>Examples <span>prove.</span></h1>
+    <p>Your TED Talk needs <b>at least one well-developed story</b> and <b>at least one well-developed example</b>. Today you'll learn the difference and build both.</p>
+    <div class="namebox"><input id="sname" placeholder="Type your name" maxlength="40" oninput="S.name=this.value"><button class="btn ember" onclick="startApp()">Let's go ➜</button></div>
+    <div class="loadhint">Did App 3? <label>📂 Load your Backbone JSON<input type="file" accept=".json" hidden onchange="loadJSON(event)"></label> and your points come with you.</div>
+  </div>
+</section>
+
+<main class="wrap" id="main">
+<!-- ENGAGE -->
+<section class="phase on" data-p="0">
+  <div class="phead"><div class="pnum" style="background:var(--flame)">⚡</div><div><h2>Engage: Which one do you remember?</h2><p>Same point. Two ways to show it.</p></div></div>
+  <div class="card objectives"><h3><span class="em">🎯</span> Lesson objectives</h3><p style="font-weight:700">By the end of this lesson, you will…</p>
+    <ul><li>explain the difference between a story and an example</li><li>describe what makes a story and an example “well developed”</li><li>build one story and one example for your talk</li><li>tell your story to a partner in about one minute</li></ul></div>
+  <div class="card"><h3><span class="em">🎧</span> Point: “Small kindness makes a big difference.”</h3><p class="hint">Listen to both. Which one will you still remember tomorrow?</p>
+    <div class="vs" id="abBox"></div><div class="fb" id="abFb"></div></div>
+  <div class="card"><h3><span class="em">🗂️</span> Story or example?</h3><p class="hint">A <b>story</b> takes us to one moment: when, where, who, what happened, what changed. An <b>example</b> is a quick, specific case that proves a point.</p>
+    <div class="progress"><div id="sortBar"></div></div><div class="sortq" id="sortQ"></div>
+    <div class="bins"><button class="bin" style="background:var(--flame)" onclick="sortAns('s')"><span class="big">📖</span>Story</button><button class="bin" style="background:var(--teal)" onclick="sortAns('e')"><span class="big">💬</span>Example</button></div>
+    <div class="fb" id="sortFb"></div></div>
+  <div class="card"><h3><span class="em">🤔</span> What do I want to learn today?</h3><p class="hint">Tap 1 or 2 questions.</p><div class="row" id="wants"></div></div>
+  <div class="next"><button class="btn" onclick="finishPhase(0)">Next: Explore ➜</button></div>
+</section>
+
+<!-- EXPLORE -->
+<section class="phase" data-p="1">
+  <div class="phead"><div class="pnum" style="background:var(--teal)">🔍</div><div><h2>Explore: What makes it “well developed”?</h2><p>The rubric wants depth, not just a mention.</p></div></div>
+  <div class="card"><h3><span class="em">⛰️</span> Build the story mountain</h3><p class="hint">Here is Maryam's story in pieces. Tap them in the right order to climb the mountain.</p>
+    <div class="mtn" id="mtn"><svg viewBox="0 0 100 60" preserveAspectRatio="none"><path d="M0 58 L28 30 L50 6 L72 30 L100 58 Z" fill="#FFE4D3" stroke="#F26B1D" stroke-width=".6"/></svg>
+      <div class="mslot" id="m0" style="left:1%;bottom:4%"><b>1 · SET THE SCENE</b><span></span></div>
+      <div class="mslot" id="m1" style="left:20%;top:30%"><b>2 · THE PROBLEM</b><span></span></div>
+      <div class="mslot" id="m2" style="left:38.5%;top:0"><b>3 · THE TURNING POINT</b><span></span></div>
+      <div class="mslot" id="m3" style="right:20%;top:30%"><b>4 · WHAT CHANGED</b><span></span></div>
+      <div class="mslot" id="m4" style="right:1%;bottom:4%"><b>5 · THE LESSON</b><span></span></div></div>
+    <div class="pieces" id="pieces"></div><div class="row" style="margin-top:8px"><button class="btn ghost sm" onclick="resetMtn()">↺ Start again</button><button class="speak" id="mtnPlay" style="display:none" onclick="playStory()">▶ Hear the whole story</button></div>
+    <div class="fb" id="mtnFb"></div></div>
+  <div class="card"><h3><span class="em">⚖️</span> Too short, just right, too long?</h3><p class="hint">Three versions of the same story. Which one is <b>well developed</b> for a 3–6 minute talk?</p>
+    <div class="three" id="three"></div><div class="fb" id="threeFb"></div></div>
+  <div class="card"><h3><span class="em">🪜</span> Climb the example ladder</h3><p class="hint">Point: <b>“Teamwork makes hard jobs easy.”</b> Tap each rung to see why it is weak or strong.</p>
+    <div class="ladder" id="ladder"></div><div class="fb" id="ladFb"></div></div>
+  <div class="next"><button class="btn" onclick="finishPhase(1)">Next: Explain ➜</button></div>
+</section>
+
+<!-- EXPLAIN -->
+<section class="phase" data-p="2">
+  <div class="phead"><div class="pnum" style="background:var(--bark)">💡</div><div><h2>Explain: Two recipes</h2><p>Use both in your talk.</p></div></div>
+  <div class="card"><h3><span class="em">📋</span> The recipes</h3>
+    <div class="recipe">
+      <div class="rc" style="background:var(--flame)"><h4>📖 A well-developed STORY</h4><ol><li><b>Scene:</b> when, where, who</li><li><b>Problem:</b> what went wrong or surprised you</li><li><b>Turning point:</b> the big moment</li><li><b>Change:</b> what happened next</li><li><b>Lesson:</b> link it to your point</li></ol>
+        <div class="say">“It was the last day of Ramadan… Suddenly… Then… That day I learned that…”</div></div>
+      <div class="rc" style="background:var(--teal)"><h4>💬 A well-developed EXAMPLE</h4><ol><li><b>Point:</b> say your idea</li><li><b>Example:</b> a specific case: a name, a place, a number</li><li><b>Explain:</b> why it proves your point</li><li><b>Link:</b> back to your big idea</li></ol>
+        <div class="say">“Take my cousin Ali. He saved 1,000 dirhams in one year by… This shows that…”</div></div>
+    </div></div>
+  <div class="card"><h3><span class="em">👀</span> Show, don't tell</h3><p class="hint">Make the audience <b>see</b> your story. Tap each to compare.</p><div id="show"></div></div>
+  <div class="card"><h3><span class="em">🪧</span> Signal phrases</h3><p class="hint">Tell the audience what's coming. Tap to hear.</p>
+    <div class="recipe"><div><p style="font-weight:900;color:var(--flame);margin-bottom:6px">📖 To start a story</p><div class="sense" id="sigS"></div></div><div><p style="font-weight:900;color:var(--teal);margin-bottom:6px">💬 To give an example</p><div class="sense" id="sigE"></div></div></div></div>
+  <div class="card"><h3><span class="em">🎯</span> Fix it!</h3><p class="hint">What is missing? Choose the best fix.</p><div class="progress"><div id="fixBar"></div></div><div id="fixBox"></div><div class="fb" id="fixFb"></div></div>
+  <div class="next"><button class="btn" onclick="finishPhase(2)">Next: Extend ➜</button></div>
+</section>
+
+<!-- EXTEND -->
+<section class="phase" data-p="3">
+  <div class="phead"><div class="pnum" style="background:var(--ember);color:var(--bark)">🚀</div><div><h2>Extend: Build my story and example</h2><p>Key words only. You will <b>say</b> the sentences.</p></div></div>
+  <div class="card"><h3><span class="em">🦴</span> My talk so far</h3>
+    <div class="who"><div><b>MY TITLE</b><input id="tTitle" placeholder="e.g. What makes my heart sing" oninput="S.topic.title=this.value"></div>
+      <div><b>MY POINT WITH THE STORY 📖</b><input id="tPS" placeholder="e.g. Patience helps me learn" oninput="S.pS=this.value;renderPrev()"></div>
+      <div><b>MY POINT WITH THE EXAMPLE 💬</b><input id="tPE" placeholder="e.g. Patience brings rewards" oninput="S.pE=this.value;renderPrev()"></div></div></div>
+  <div class="card"><h3><span class="em">📖</span> Step 1: My story mountain</h3><p class="hint">Key words only, <b>8 words or fewer</b> per box. Then add a sense detail and time words.</p>
+    <div class="bld" id="bldS"></div>
+    <p style="font-weight:900;margin:14px 0 6px">👀 One sense detail (what you saw, heard, felt…)</p><input class="chip" style="width:100%;font-weight:600" id="sense" maxlength="60" placeholder="e.g. the sand was cold and the sky was orange" oninput="S.sense=this.value;renderPrev()">
+    <p style="font-weight:900;margin:14px 0 6px">⏱️ Time words I will use</p><div class="sense" id="timeW"></div>
+    <div class="preview" id="prevS"></div><div class="checks" id="chkS"></div></div>
+  <div class="card"><h3><span class="em">💬</span> Step 2: My example</h3><p class="hint">Make it <b>specific</b>: a name, a place or a number. <b>10 words or fewer</b> per box.</p>
+    <div class="bld" id="bldE"></div><div class="preview" id="prevE"></div><div class="checks" id="chkE"></div></div>
+  <div class="card"><h3><span class="em">🔥</span> Step 3: Campfire telling</h3><p class="hint">Tell your story to your partner in <b>about 1 minute</b>. Look at your key words, not a script. Then your partner rates it.</p>
+    <div class="timer" id="timer">1:00</div><div class="row" style="justify-content:center;margin-bottom:12px"><button class="btn" id="tBtn" onclick="runTimer()">Start timer</button></div>
+    <div class="coach" id="coach"></div><input class="chip" style="display:block;width:100%;margin-top:6px" id="ctip" placeholder="Partner's top tip (one short idea)" oninput="S.coachTip=this.value"></div>
+  <div class="next"><button class="btn" onclick="finishPhase(3)">Next: Evaluate ➜</button></div>
+</section>
+
+<!-- EVALUATE -->
+<section class="phase" data-p="4">
+  <div class="phead"><div class="pnum" style="background:var(--flame)">🏆</div><div><h2>Evaluate: Check yourself</h2><p>Score 80% to unlock your certificate.</p></div></div>
+  <div class="card"><h3><span class="em">📝</span> Story & example quiz</h3><div id="quiz"></div></div>
+  <div class="card"><h3><span class="em">⭐</span> How confident am I?</h3><div class="self" id="selfc"></div></div>
+  <div class="card"><h3><span class="em">✅</span> What did I learn today?</h3><p class="hint">Tap the questions from Engage that you can now answer.</p><div class="row" id="learned"></div></div>
+  <div class="card" style="text-align:center"><h3 style="justify-content:center"><span class="em">🖨️</span> Finish & keep</h3>
+    <p class="hint">Print your Story & Example Card. Save your JSON file for App 6 (Sound Like Yourself).</p>
+    <div class="row" style="justify-content:center"><button class="btn" onclick="printCard()">🖨️ Print my card</button><button class="btn alt" onclick="saveJSON()">💾 Save JSON for App 6</button><button class="btn ember" id="certBtn" onclick="printCert()" disabled>🎓 Certificate (80%)</button></div></div>
+</section>
+</main>
+<footer>TED Talk Series · App 4 of 8 · LSC 1503 Professional Spoken Communication · HCT<br>Designed by: Nazila Motahari</footer>
+
+<div class="modal" id="mBadges" onclick="if(event.target===this)closeModal(this)"><div class="mbox"><h3 style="font-size:24px;font-weight:900">🏅 My badges</h3><div class="badges" id="badges"></div><div class="next"><button class="btn alt" onclick="closeModal(document.getElementById('mBadges'))">Close</button></div></div></div>
+<div class="modal" id="mGloss" onclick="if(event.target===this)closeModal(this)"><div class="mbox"><h3 style="font-size:24px;font-weight:900">📖 Glossary · المفردات</h3><p class="hint">Tap a card to see the Arabic and an example.</p><div class="gl" id="gloss"></div><div class="next" style="margin-top:12px"><button class="btn alt" onclick="closeModal(document.getElementById('mGloss'))">Close</button></div></div></div>
+<div id="printCard" class="pc"></div><div id="cert" class="pc"></div>
+<div class="toast" id="toast"></div><canvas id="confetti"></canvas>
+
+<script>
+const S={name:"",points:0,done:[false,false,false,false,false],awarded:{},ab:null,sortScore:0,wants:[],mtn:[],three:null,rungs:[],show:[],sig:[],fixScore:0,
+  topic:{title:"",idea:""},hook:"",pS:"",pE:"",story:["","","","",""],sense:"",timeW:[],ex:["","","",""],coach:{},coachTip:"",quiz:null,quizScore:null,self:{},learned:[],prev:null,carry:null};
+const PH=["Engage","Explore","Explain","Extend","Evaluate"],PHE=["⚡","🔍","💡","🚀","🏆"];
+const BADGES=[["👂","Good Listener"],["⛰️","Mountain Climber"],["📋","Recipe Master"],["🔥","Storyteller"],["🏆","Story Champion"]];
+const $=id=>document.getElementById(id);
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function words(s){return (s||"").trim().split(/\s+/).filter(Boolean).length}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2200)}
+function addPts(n,msg){S.points+=n;$("pts").textContent="🔥 "+S.points+" pts";if(msg)toast(msg+"  +"+n)}
+function awardOnce(k,n,msg){if(S.awarded[k])return;S.awarded[k]=1;addPts(n,msg||"Nice!")}
+function sayList(arr){try{speechSynthesis.cancel();arr.forEach(t=>{const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";u.rate=.92;speechSynthesis.speak(u)})}catch(e){toast("Audio is not available on this device")}}
+function say(t){sayList([t])}
+function openModal(id){if(id==="mBadges")renderBadges();$(id).classList.add("on")}
+function closeModal(m){m.classList.remove("on")}
+let cur=0;
+function renderTabs(){$("tabs").innerHTML=PH.map((p,i)=>`<button class="tab ${cur===i?"on":""} ${S.done[i]?"done":""}" onclick="go(${i})">${PHE[i]} ${p} <span class="ok">✅</span></button>`).join("")}
+function go(i){cur=i;document.querySelectorAll(".phase").forEach(s=>s.classList.toggle("on",+s.dataset.p===i));renderTabs();const y=$("main").getBoundingClientRect().top+scrollY-110;scrollTo({top:y,behavior:"smooth"});if(i===4){S.quiz?drawQuiz():buildQuiz()}}
+function startApp(){if(!S.name.trim()){toast("Type your name first 😊");$("sname").focus();return}awardOnce("start",5,"Welcome, "+S.name.trim()+"!");shrinkHero();go(0)}
+function shrinkHero(){const h=$("hero");h.classList.add("small");h.querySelector("h1").innerHTML=`${esc(S.name.trim())}, stories <span>stay.</span>`}
+const phaseReq=[()=>(S.ab!==null&&!!S.awarded.sort)||"Choose A or B and finish 'Story or example?'.",
+  ()=>(S.mtn.length>=5&&S.three!==null&&S.rungs.length>=4)||"Build the mountain, choose a version, and open all 4 ladder rungs.",
+  ()=>(S.show.length>=3&&!!S.awarded.fix)||"Open all 3 'show, don't tell' pairs and finish 'Fix it!'.",
+  ()=>{if(S.story.filter(x=>x.trim()).length<5)return "Fill all 5 boxes of your story mountain.";if(S.story.some(x=>words(x)>8))return "Story boxes: 8 words or fewer each.";
+       if(S.ex.filter(x=>x.trim()).length<4)return "Fill all 4 boxes of your example.";if(S.ex.some(x=>words(x)>10))return "Example boxes: 10 words or fewer each.";return true}];
+function finishPhase(i){const r=phaseReq[i]();if(r!==true){toast("✋ "+r);return}if(!S.done[i]){S.done[i]=true;addPts(20,BADGES[i][0]+" Badge: "+BADGES[i][1]);confetti()}go(i+1)}
+function renderBadges(){$("badges").innerHTML=BADGES.map((b,i)=>`<div class="badge ${S.done[i]?"on":""}"><span class="big">${b[0]}</span>${b[1]}<br><small>${PH[i]}</small></div>`).join("")}
+
+/* ENGAGE */
+const AB=[["EXAMPLE","For example, many people in the UAE help each other every day. Kindness is very important in our society.","For example, many people in the UAE help each other every day. Kindness is very important in our society."],
+ ["STORY","Last winter, my car broke down on the road to Al Ain. It was dark, and my phone was dead. A truck driver stopped. He didn't speak Arabic or English, but he fixed my tyre in ten minutes, smiled, and refused my money. I still think about him every time I see a truck.","Last winter, my car broke down on the road to Al Ain. It was dark, and my phone was dead. A truck driver stopped. He didn't speak Arabic or English, but he fixed my tyre in ten minutes, smiled, and refused my money. I still think about him every time I see a truck."]];
+function renderAB(){$("abBox").innerHTML=AB.map((a,i)=>`<div class="vbox ${S.ab!==null&&i===1?"win":""}"><div class="lab">${S.ab!==null?a[0]:"VERSION "+"AB"[i]}</div><q>${a[1]}</q><div class="row"><button class="speak" onclick="say(AB[${i}][2])">▶ Listen</button><button class="btn sm ${S.ab===i?"ember":"ghost"}" onclick="pickAB(${i})">I'll remember this</button></div></div>`).join("")}
+function pickAB(i){const f=S.ab===null;S.ab=i;renderAB();const fb=$("abFb");fb.className="fb show "+(i===1?"good":"info");
+  fb.innerHTML=(i===1?"🎉 Most people remember B! ":"Most people remember B. ")+"A is a weak, general example: no name, no place, no picture in our heads. B is a <b>story</b>: a time, a place, a problem, a turning point and a feeling. <b>Stories stay.</b>";if(f)addPts(10)}
+const SORT=shuffle([["“One night in the desert, my phone died and I had to find the camp by the stars…”","s"],["“For example, my cousin saves 50 dirhams every week. After one year, he bought his own laptop.”","e"],["“I will never forget my first day at college. I walked into the wrong classroom…”","e2s"],["“Take Dubai Cares: they help children in many countries go to school.”","e"],["“Three years ago, my grandfather lost his sight. That morning, he called me into his room…”","s"],["“For instance, our class collected 200 bottles in one week for recycling.”","e"]].map(x=>[x[0],x[1]==="e2s"?"s":x[1]]));
+let si=0;
+function drawSort(){$("sortBar").style.width=(si/SORT.length*100)+"%";if(si>=SORT.length){$("sortQ").textContent=`🎉 ${S.sortScore} / ${SORT.length} correct!`;awardOnce("sort",10,"Story spotter!");return}$("sortQ").textContent=SORT[si][0]}
+function sortAns(k){if(si>=SORT.length)return;const ok=SORT[si][1]===k,fb=$("sortFb");if(ok){S.sortScore++;addPts(2)}
+  fb.className="fb show "+(ok?"good":"bad");fb.innerHTML=ok?"✅ Correct!":(SORT[si][1]==="s"?"❌ This is a <b>story</b>: it takes us into one moment, and something is about to happen.":"❌ This is an <b>example</b>: a quick, specific case (a name, a number) that proves a point.");si++;drawSort()}
+const WANTS=["What is the difference between a story and an example?","How long should my story be?","What does “well developed” mean?","Can my example be about another person?","How do I make the audience see my story?","Where do they go in my talk?"];
+function renderWants(){$("wants").innerHTML=WANTS.map((w,i)=>`<button class="chip ${S.wants.includes(i)?"on":""}" onclick="tapWant(${i})">${w}</button>`).join("")}
+function tapWant(i){const k=S.wants.indexOf(i);k>-1?S.wants.splice(k,1):S.wants.length<2?S.wants.push(i):toast("Pick up to 2");renderWants();renderLearned();if(S.wants.length)awardOnce("wants",5,"Great question")}
+
+/* EXPLORE */
+const MTN=["It was the last day of Ramadan, and I was cooking for 20 guests.","I was nervous, and I burned the rice: the whole pot!","My grandmother walked into the kitchen, laughed, and handed me a spoon.","Together we made a new pot in 30 minutes, and everyone said it was the best rice.","That day I learned that asking for help is a strength, not a weakness."];
+const MTN_ORD=[3,0,4,2,1];
+function renderMtn(){for(let i=0;i<5;i++){const el=$("m"+i);const v=S.mtn[i];el.classList.toggle("filled",v!==undefined);el.querySelector("span").textContent=v!==undefined?MTN[v].split(" ").slice(0,6).join(" ")+"…":""}
+  $("pieces").innerHTML=MTN_ORD.map(i=>`<button class="piece" ${S.mtn.includes(i)?"disabled":""} onclick="tapPiece(${i})">${MTN[i]}</button>`).join("")}
+function tapPiece(i){if(S.mtn.length>=5)return;S.mtn.push(i);renderMtn();if(S.mtn.length===5){const ok=S.mtn.every((v,k)=>v===k),fb=$("mtnFb");fb.className="fb show "+(ok?"good":"info");
+  fb.innerHTML=(ok?"🎉 You climbed it! ":"Nearly! The right order is: scene → problem → turning point → change → lesson. ")+"Notice the <b>lesson</b> at the end: it links the story to the point of the talk.";$("mtnPlay").style.display="inline-block";addPts(ok?15:5);awardOnce("mtn",5)}}
+function resetMtn(){S.mtn=[];$("mtnFb").className="fb";$("mtnPlay").style.display="none";renderMtn()}
+function playStory(){sayList(MTN)}
+const THREE=[["TOO SHORT","“I burned the rice once, so I learned to ask for help.”","#D64545"],["JUST RIGHT","“It was the last day of Ramadan, and I was cooking for 20 guests. I was so nervous that I burned the whole pot of rice. Then my grandmother walked in, laughed, and gave me a spoon. Together, we made a new pot in 30 minutes. That day I learned that asking for help is a strength.”","#2E9E62"],["TOO LONG","“So, it was Ramadan, the last day, or maybe the day before, I'm not sure. We had guests, my uncles, my aunts, their children, I think 20 or 21 people. My mother went to the shop, she needed onions, and the shop was closed, so she went to another shop, and then I was in the kitchen, and the rice… [it continues for 3 more minutes]”","#E09A1F"]];
+function renderThree(){$("three").innerHTML=THREE.map((t,i)=>`<div class="ver ${S.three!==null&&i===1?"win":""}"><div class="lab" style="color:${S.three!==null?t[2]:"var(--muted)"}">${S.three!==null?t[0]:"VERSION "+(i+1)}</div><p>${t[1]}</p><button class="btn sm ${S.three===i?"ember":"ghost"}" ${S.three!==null?"disabled":""} onclick="pickThree(${i})">This one!</button></div>`).join("")}
+function pickThree(i){S.three=i;renderThree();const fb=$("threeFb");fb.className="fb show "+(i===1?"good":"bad");
+  fb.innerHTML=(i===1?"✅ Yes! ":"Not quite. ")+"Version 1 only <b>mentions</b> the story (the rubric calls this “underdeveloped”). Version 3 has too many details that don't matter. Version 2 has a scene, a problem, a turning point, a change and a lesson, in about 30 seconds.";addPts(i===1?10:3)}
+const RUNGS=[["😐 Weak","#D64545","“Teamwork is good for everyone.”","Too general. No person, no place, no number. Anyone could say this."],["🙂 Better","#E09A1F","“For example, my friends help me.”","There's a person, but it's still vague. Help with what? When?"],["😀 Specific","#1FA2B8","“For example, last Ramadan our volunteer team served iftar to 300 people in two hours.”","Now it's specific: a time, a group, a number. We can see it."],["🤩 Well developed","#2E9E62","“For example, last Ramadan our team of eight served iftar to 300 people in two hours. Alone, I couldn't carry one table. Together, we did it all. That shows how teamwork makes hard jobs easy.”","Specific + explained + linked back to the point. This is what the rubric wants."]];
+function renderLadder(){$("ladder").innerHTML=RUNGS.map((r,i)=>`<div class="rung ${S.rungs.includes(i)?"open":""}" onclick="openRung(${i})"><div class="lv" style="background:${r[1]}">${r[0]}</div><div><div class="tx">${r[2]}</div><div class="why">💡 ${r[3]}</div></div></div>`).join("")}
+function openRung(i){if(!S.rungs.includes(i)){S.rungs.push(i);addPts(3)}renderLadder();if(S.rungs.length>=4){const fb=$("ladFb");fb.className="fb info show";fb.innerHTML="🔑 A well-developed example = <b>specific</b> (who, where, how many) + <b>explained</b> + <b>linked</b> back to your point.";awardOnce("ladder",10,"Top of the ladder!")}}
+
+/* EXPLAIN */
+const SHOW=[["😐 Tell","“I was very scared.”","👀 Show","“My hands were shaking, and I couldn't say a word.”"],["😐 Tell","“The desert was beautiful.”","👀 Show","“The sand was cold, and the whole sky turned orange.”"],["😐 Tell","“My grandmother was kind.”","👀 Show","“She laughed, handed me a spoon, and said: ‘Again. Together.’”"]];
+function renderShow(){$("show").innerHTML=SHOW.map((s,i)=>`<div class="vs" style="margin-bottom:10px;cursor:pointer" onclick="tapShow(${i})"><div class="vbox"><div class="lab">${s[0]}</div><q>${s[1]}</q></div><div class="vbox ${S.show.includes(i)?"win":""}"><div class="lab">${s[2]}</div><q>${S.show.includes(i)?s[3]:"tap to reveal…"}</q></div></div>`).join("")}
+function tapShow(i){if(!S.show.includes(i)){S.show.push(i);addPts(2)}renderShow();if(S.show.length>=3)awardOnce("show",5,"Show, don't tell!")}
+const SIGS=["Let me tell you about the day…","I will never forget…","It was 5 a.m. …","Three years ago…"],SIGE=["For example,","For instance,","Take my cousin Ali…","Here's a number that surprised me:"];
+function renderSigs(){$("sigS").innerHTML=SIGS.map(p=>`<button class="chip" onclick="say(this.textContent.replace(/…/g,''))">▶ ${p}</button>`).join("");$("sigE").innerHTML=SIGE.map(p=>`<button class="chip" onclick="say(this.textContent.replace(/…/g,''))">▶ ${p}</button>`).join("")}
+const FIX=[{t:"“For example, people help each other.”",o:["Add a specific person, place or number","Make it longer with more general words","Change it into a joke"],a:0,w:"It's too general. Who? Where? How many?"},
+ {t:"“Last year I went camping and it was fun. The end.”",o:["Add a problem or surprise and a lesson","Add five more places you visited","Say it faster"],a:0,w:"There's no problem, no turning point and no lesson, so it isn't a story yet."},
+ {t:"“My uncle saved money by cycling to work.”",o:["Remove the uncle","Add how much and explain why it proves the point","Add a second uncle"],a:1,w:"Good start! Add a number and link it to your point."},
+ {t:"“…and then we went home, and then we ate, and then we slept, and then…”",o:["Add more ‘and then’","Cut details that don't help the point","Read it from the slide"],a:1,w:"Too many details make a story too long. Keep only what helps your point."},
+ {t:"A great story… but nobody knows why you told it.",o:["Add “That day I learned…” to link it","Start a new story straight away","Show a slide with the full story"],a:0,w:"Always link the story back to your point with a lesson."}];
+let fxi=0;const FIX_ORD=FIX.map(()=>shuffle([0,1,2]));
+function drawFix(){$("fixBar").style.width=(fxi/FIX.length*100)+"%";if(fxi>=FIX.length){$("fixBox").innerHTML=`<div class="qq" style="text-align:center">🎉 ${S.fixScore} / ${FIX.length} fixed!</div>`;awardOnce("fix",10,"Story doctor!");return}
+  const f=FIX[fxi];$("fixBox").innerHTML=`<div class="sortq" style="min-height:80px">${f.t}</div><div class="opts" style="margin-top:10px">${FIX_ORD[fxi].map(k=>`<button class="opt" onclick="fixAns(this,${k})">${f.o[k]}</button>`).join("")}</div>`}
+function fixAns(b,k){const f=FIX[fxi];document.querySelectorAll("#fixBox .opt").forEach((x,j)=>{x.disabled=true;if(FIX_ORD[fxi][j]===f.a)x.classList.add("right")});const ok=k===f.a;if(!ok)b.classList.add("wrong");if(ok){S.fixScore++;addPts(3)}
+  const fb=$("fixFb");fb.className="fb show "+(ok?"good":"bad");fb.innerHTML=(ok?"✅ ":"❌ ")+f.w;setTimeout(()=>{fxi++;drawFix()},1700)}
+
+/* EXTEND */
+const BS=[["1 · SCENE","When? Where? Who?","last day of Ramadan, kitchen, 20 guests"],["2 · PROBLEM","What went wrong?","burned the whole pot of rice"],["3 · TURNING POINT","The big moment","grandmother laughed, gave me a spoon"],["4 · CHANGE","What happened next?","new pot in 30 minutes, everyone happy"],["5 · LESSON","Link to your point","asking for help is a strength"]];
+const BE=[["POINT","Your idea","teamwork makes hard jobs easy"],["EXAMPLE","Who / where / how many?","our team of 8 served 300 people"],["EXPLAIN","Why does it prove it?","alone I couldn't carry one table"],["LINK","Back to your big idea","together, hard jobs become easy"]];
+const TIMEW=["One morning…","Suddenly…","Then…","After that…","Finally…","That day I learned…"];
+function bld(id,defs,arr,max,key){$(id).innerHTML=defs.map((d,i)=>`<div class="bx"><label style="color:${key==="story"?"var(--flame)":"var(--teal)"}">${d[0]}</label><div class="q">${d[1]}</div><input value="${esc(arr[i])}" placeholder="e.g. ${d[2]}" oninput="S.${key}[${i}]=this.value;wcb(this,${max});renderPrev()"><div class="wc ${words(arr[i])>max?"over":""}">${words(arr[i])} / ${max} words</div></div>`).join("")}
+function wcb(el,max){const n=words(el.value),w=el.nextElementSibling;w.textContent=n+" / "+max+" words"+(n>max?" · too long ✂️":"");w.classList.toggle("over",n>max)}
+function renderTimeW(){$("timeW").innerHTML=TIMEW.map(t=>`<button class="chip ${S.timeW.includes(t)?"on":""}" onclick="tapTW('${t}')">${t}</button>`).join("")}
+function tapTW(t){const k=S.timeW.indexOf(t);k>-1?S.timeW.splice(k,1):S.timeW.push(t);renderTimeW();renderPrev();if(S.timeW.length>=2)awardOnce("timew",5,"Time words!")}
+function renderPrev(){const st=S.story,ex=S.ex,g=(v,ph)=>v.trim()?`<b>${esc(v)}</b>`:`<i>[${ph}]</i>`;
+  $("prevS").innerHTML=`📖 <b>Your story map:</b> ${S.pS?`(for “${esc(S.pS)}”)`:""}<br>${g(st[0],"scene")} → ${g(st[1],"problem")} → ${g(st[2],"turning point")} → ${g(st[3],"change")} → <i>That day I learned…</i> ${g(st[4],"lesson")}${S.sense?`<br>👀 ${esc(S.sense)}`:""}`;
+  $("prevE").innerHTML=`💬 <b>Your example map:</b><br>${g(ex[0]||S.pE,"point")} → <i>For example,</i> ${g(ex[1],"specific example")} → <i>This shows…</i> ${g(ex[2],"explain")} → ${g(ex[3],"link")}`;
+  const spec=/\d|\b[A-Z][a-z]+/.test((ex[1]||"").replace(/^\w/,""));
+  $("chkS").innerHTML=[["5 parts",st.every(x=>x.trim())],["8 words or fewer each",st.every(x=>words(x)<=8)],["a sense detail",!!S.sense.trim()],["time words",S.timeW.length>=2],["a lesson that links",!!st[4].trim()]].map(c=>`<span class="${c[1]?"ok":""}">${c[1]?"✅":"⬜"} ${c[0]}</span>`).join("");
+  $("chkE").innerHTML=[["4 parts",ex.every(x=>x.trim())],["specific (a name, place or number)",spec],["10 words or fewer each",ex.every(x=>words(x)<=10)]].map(c=>`<span class="${c[1]?"ok":""}">${c[1]?"✅":"⬜"} ${c[0]}</span>`).join("");
+  if(st.every(x=>x.trim())&&st.every(x=>words(x)<=8))awardOnce("storyB",15,"📖 Story mapped!");if(ex.every(x=>x.trim())&&ex.every(x=>words(x)<=10))awardOnce("exB",15,"💬 Example mapped!")}
+const COACH=["📍 I could see the scene","⚡ There was a problem or surprise","🔁 Something changed","🔗 The lesson linked to the point","⏱️ About 1 minute, not reading"];
+function renderCoach(){$("coach").innerHTML=COACH.map((c,i)=>`<div class="it">${c}<div class="lvl">${["Not yet","Getting there","Yes!"].map((l,k)=>`<button class="${S.coach[i]===k?"on":""}" onclick="S.coach[${i}]=${k};renderCoach();if(Object.keys(S.coach).length>=5)awardOnce('coach',10,'Campfire feedback done')">${l}</button>`).join("")}</div></div>`).join("");$("ctip").value=S.coachTip}
+let tIv=null;
+function runTimer(){if(tIv){clearInterval(tIv);tIv=null;$("tBtn").textContent="Start timer";return}let s=60;$("tBtn").textContent="Stop";$("timer").textContent="1:00";
+  tIv=setInterval(()=>{s--;$("timer").textContent="0:"+String(Math.max(s,0)).padStart(2,"0");if(s<=0){clearInterval(tIv);tIv=null;$("tBtn").textContent="Start timer";toast("⏰ Time! Partner: rate the story")}},1000)}
+
+/* EVALUATE */
+const QUIZ=[
+ {q:"What is the main difference between a story and an example?",o:["A story takes us into one moment; an example is a quick, specific case","A story is always true, but an example is always made up","A story is short, and an example is always very long","There is no difference; the words mean the same thing"],a:0},
+ {q:"Which one is a well-developed example?",o:["“Teamwork is good for everybody in the world.”","“Our team of eight served 300 people in two hours, so teamwork works.”","“For example, my friends sometimes help me with things.”","“Many people say teamwork is very important today.”"],a:1},
+ {q:"Which part makes a story well developed?",o:["Lots of dates and places, one after another","Starting with “Once upon a time” every time","A problem or turning point, and a lesson that links","Reading the whole story from your slide"],a:2},
+ {q:"Saeed's story is 3 minutes long and has many small details. What should he do?",o:["Add more details so it feels real","Tell it faster so it fits in the time","Put the full story on his slides","Cut details that don't help his point"],a:3},
+ {q:"What should come at the end of your story?",o:["A lesson that links back to your point","A new story about something different","A list of everyone in the story","An apology for the story being long"],a:0},
+ {q:"How can you make an example more specific?",o:["Use words like “many” and “some people”","Add a name, a place or a number","Make it about everybody in the world","Say it more quietly than the rest"],a:1},
+ {q:"“My hands were shaking, and I couldn't say a word.” This is…",o:["telling the audience a fact","an example with a number","showing a feeling, not just telling it","a signpost for the ending"],a:2},
+ {q:"How many stories and examples does the rubric ask for, at least?",o:["Three stories and no examples","One example only, no stories","Five of each in every main point","One well-developed story and one well-developed example"],a:3},
+ {q:"Which phrase is best to start a story?",o:["“I will never forget the day…”","“For instance, the number is…”","“In conclusion, I think…”","“Any questions?”"],a:0},
+ {q:"Can your example be about another person, not you?",o:["No, examples must always be about yourself","Yes, if it is specific and proves your point","Only if the person is very famous","Only if you read it from the slide"],a:1}];
+function buildQuiz(){S.quiz=shuffle(QUIZ.map((q,i)=>i)).map(i=>({i,ord:shuffle(QUIZ[i].o.map((_,k)=>k)),ans:null}));qi=0;S.quizScore=null;drawQuiz()}
+let qi=0;
+function drawQuiz(){const box=$("quiz");if(S.quizScore!==null&&qi>=S.quiz.length){const pct=Math.round(S.quizScore/QUIZ.length*100);
+  box.innerHTML=`<div style="text-align:center"><div style="font-size:60px">${pct>=80?"🏆":"💪"}</div><div class="qq">You scored ${S.quizScore}/${QUIZ.length} (${pct}%)</div><p class="hint">${pct>=80?"Amazing! Your certificate is unlocked.":"You need 80% for the certificate. Try again!"}</p><button class="btn ghost" onclick="buildQuiz()">🔁 Try again</button></div>`;
+  $("certBtn").disabled=pct<80;if(pct>=80){confetti();if(!S.done[4]){S.done[4]=true;addPts(20,"🏆 Badge: Story Champion");renderTabs()}}return}
+  const it=S.quiz[qi],Q=QUIZ[it.i];box.innerHTML=`<div class="progress"><div style="width:${qi/S.quiz.length*100}%"></div></div><div class="qn">QUESTION ${qi+1} OF ${S.quiz.length}</div><div class="qq">${Q.q}</div><div class="opts">${it.ord.map(k=>`<button class="opt" onclick="qAns(this,${k})">${Q.o[k]}</button>`).join("")}</div>`}
+function qAns(b,k){const it=S.quiz[qi],Q=QUIZ[it.i];if(it.ans!==null)return;it.ans=k;document.querySelectorAll("#quiz .opt").forEach((x,j)=>{x.disabled=true;if(it.ord[j]===Q.a)x.classList.add("right")});if(k===Q.a)addPts(5);else b.classList.add("wrong");
+  setTimeout(()=>{qi++;if(qi>=S.quiz.length)S.quizScore=S.quiz.filter(x=>x.ans===QUIZ[x.i].a).length;drawQuiz()},1000)}
+const SELF=["I can explain story vs example","I can build a story with 5 parts","I can make an example specific","I can tell my story in about a minute"];
+function renderSelf(){$("selfc").innerHTML=SELF.map((s,i)=>`<div class="it">${s}<div class="stars">${[1,2,3,4,5].map(n=>`<button class="${(S.self[i]||0)>=n?"on":""}" onclick="S.self[${i}]=${n};renderSelf();awardOnce('self${i}',2)">⭐</button>`).join("")}</div></div>`).join("")}
+function renderLearned(){const list=S.wants.length?S.wants:[0,2];$("learned").innerHTML=list.map(i=>`<button class="chip ${S.learned.includes(i)?"on":""}" onclick="tapLearned(${i})">✅ ${WANTS[i]}</button>`).join("")}
+function tapLearned(i){const k=S.learned.indexOf(i);k>-1?S.learned.splice(k,1):S.learned.push(i);renderLearned();awardOnce("learned",5,"Reflection done")}
+const GLOSS=[["📖","story","قصة","My story is about my grandmother."],["💬","example","مثال","For example, my cousin Ali…"],["🎬","scene","مشهد","Set the scene: when and where."],["⚡","turning point","نقطة تحوّل","The turning point was the phone call."],["🔁","change","تغيير","After that, everything changed."],["💡","lesson","درس / عبرة","The lesson is: ask for help."],["🎯","specific","محدّد","Use a specific number."],["🌫️","general","عام","“Many people” is too general."],["🧩","detail","تفصيل","Keep details that help the point."],["👀","describe","يصف","Describe what you saw."],["🔗","link","يربط","Link the story to your point."],["🌱","develop","يطوّر","Develop your example more."],["🎭","character","شخصية","Who are the characters?"],["⏱️","sequence","تسلسل","Use time words for the sequence."]];
+function renderGloss(){$("gloss").innerHTML=GLOSS.map(g=>`<div class="gc" onclick="this.classList.toggle('on');awardOnce('gl_${g[1]}',1)"><div class="in"><div class="f"><div class="big">${g[0]}</div>${g[1]}</div><div class="b"><div class="ar">${g[2]}</div>${g[3]}</div></div></div>`).join("")}
+
+function printCard(){const st=S.story,ex=S.ex;
+  $("printCard").innerHTML=`<div class="ph"><div><h1>🔥 My Story & Example Card</h1><div style="opacity:.8">TED Talk Series · App 4 · LSC 1503 · ${esc(S.name)} · ${new Date().toLocaleDateString("en-GB")}</div></div><div style="font-size:28px">📖💬</div></div>
+  <div class="pb"><b>Title</b>${esc(S.topic.title)||"&nbsp;"}</div>
+  <div class="pb"><b>📖 My story${S.pS?" · for the point: "+esc(S.pS):""}</b><div class="g4" style="grid-template-columns:repeat(5,1fr)">${BS.map((d,i)=>`<div><i>${d[0]}</i>${esc(st[i])||"–"}</div>`).join("")}</div>${S.sense?`<div style="margin-top:6px;font-size:13px">👀 ${esc(S.sense)}</div>`:""}${S.timeW.length?`<div style="font-size:13px">⏱️ ${S.timeW.join(" · ")}</div>`:""}</div>
+  <div class="pb"><b>💬 My example${S.pE?" · for the point: "+esc(S.pE):""}</b><div class="g4">${BE.map((d,i)=>`<div><i>${d[0]}</i>${esc(ex[i])||"–"}</div>`).join("")}</div></div>
+  <div class="pb"><b>Partner campfire feedback</b>${COACH.map((c,i)=>`${c}: <strong>${S.coach[i]!==undefined?["Not yet","Getting there","Yes!"][S.coach[i]]:"–"}</strong>`).join("<br>")}<br>Top tip: ${esc(S.coachTip)||"–"}</div>
+  <div class="pb"><b>Quiz · Points</b>${S.quizScore!==null?S.quizScore+"/"+QUIZ.length:"not yet"} · 🔥 ${S.points} pts</div>
+  <p style="text-align:center;font-size:11px;margin-top:10px;color:#6E5D52">Keep these key words for your cue cards · Designed by: Nazila Motahari · HCT</p>`;doPrint("printCard");awardOnce("print",5,"Card ready")}
+function printCert(){$("cert").innerHTML=`<div class="certin"><div style="font-size:60px">🔥</div><div style="letter-spacing:3px;font-weight:800;color:#6E5D52">CERTIFICATE OF ACHIEVEMENT</div><h1>Story Camp</h1><p style="margin-top:10px">This certifies that</p><div class="nm">${esc(S.name)||"Student"}</div><p>can build a well-developed story and a well-developed example<br>for a TED-style talk.</p><p style="margin-top:14px;font-weight:800">Quiz score: ${S.quizScore}/${QUIZ.length} · ${new Date().toLocaleDateString("en-GB")}</p><div style="font-size:30px;margin-top:14px">${BADGES.map((b,i)=>S.done[i]?b[0]:"").join(" ")}</div><p style="margin-top:20px;font-size:13px;color:#6E5D52">TED Talk Series · App 4 · LSC 1503 Professional Spoken Communication · HCT<br>Designed by: Nazila Motahari</p></div>`;doPrint("cert")}
+function doPrint(id){const el=$(id);el.classList.add("printing");setTimeout(()=>{window.print();el.classList.remove("printing")},150)}
+function saveJSON(){const data=Object.assign({app:"TED-App4-StoryExample",version:1,saved:new Date().toISOString()},S);const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data)],{type:"application/json"}));a.download=`TED4_StoryExample_${(S.name||"student").replace(/\W+/g,"_")}.json`;a.click();toast("💾 Saved! Keep this file for App 6")}
+function loadJSON(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);
+  if(d.app==="TED-App4-StoryExample"){Object.keys(S).forEach(k=>{if(d[k]!==undefined)S[k]=d[k]});$("sname").value=S.name;renderAll();if(S.name.trim())shrinkHero();toast("📂 Welcome back, "+(S.name||"")+"!");return}
+  if(d.app==="TED-App3-Backbone"){S.topic=d.topic||S.topic;S.hook=d.hook||"";const pts=d.pts||[];const st=pts.find(p=>p.k==="story"),ex=pts.find(p=>p.k==="example");S.pS=st?st.p:"";S.pE=ex?ex.p:"";if(S.pE&&!S.ex[0])S.ex[0]=S.pE;S.carry={app3:{pts,ending:d.ending,tr:d.tr,shape:d.shape,time:d.time}}}
+  else if(/^TED-App\d/.test(d.app||"")){S.topic=d.topic||S.topic;S.hook=d.hook||S.hook}
+  else throw 0;
+  S.name=d.name||S.name;S.prev=d.app;$("sname").value=S.name;renderAll();if(S.name.trim()){awardOnce("start",5);awardOnce("import",10,"📂 Your points are loaded!");shrinkHero()}}
+  catch(e){toast("❌ This is not a TED Talk Studio JSON file")}};r.readAsText(f);ev.target.value=""}
+function confetti(){const c=$("confetti"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const cols=["#F26B1D","#FFC145","#1FA2B8","#3B2417","#FFFFFF"],P=Array.from({length:140},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,r:4+Math.random()*6,c:cols[Math.random()*5|0],vy:2+Math.random()*3,vx:-1.5+Math.random()*3,a:Math.random()*6}));
+  let t=0;(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.a+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r/2,p.r,p.r*1.6);x.restore()});if(++t<170)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})()}
+function renderAll(){$("pts").textContent="🔥 "+S.points+" pts";renderTabs();renderAB();if(S.ab!==null)pickAB(S.ab);drawSort();renderWants();renderMtn();renderThree();renderLadder();renderShow();renderSigs();drawFix();
+  $("tTitle").value=S.topic.title||"";$("tPS").value=S.pS;$("tPE").value=S.pE;bld("bldS",BS,S.story,8,"story");bld("bldE",BE,S.ex,10,"ex");renderTimeW();$("sense").value=S.sense;renderPrev();renderCoach();renderSelf();renderLearned();renderGloss();if(S.quiz&&S.quizScore!==null){qi=S.quiz.length;drawQuiz()}}
+renderAll();
+</script>
+</body>
+</html>
